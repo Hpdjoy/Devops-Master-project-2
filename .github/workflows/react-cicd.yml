@@ -30,4 +30,4 @@ jobs:
         context: ./react-app
         file: ./react-app/Dockerfile
         push: true
-        tags: hpdjoy/react-devsecops-app:latest
+        tags: hpdoy/react-devsecops-app:latest
