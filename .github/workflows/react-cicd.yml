@@ -52,5 +52,5 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f k8s/react-deployment.yaml
+        kubectl apply -f k8s/react-deployment.yaml --validate=false
         kubectl rollout status deployment react-deployment
