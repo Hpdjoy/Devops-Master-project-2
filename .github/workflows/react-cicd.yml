@@ -53,3 +53,6 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: kubectl apply -f k8s/react-deployment.yaml --validate=false
+      
+    - name: Deploy Kubernetes Service
+      run: kubectl apply -f k8s/react-service.yaml --validate=false
