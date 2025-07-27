@@ -31,3 +31,26 @@ jobs:
         file: ./react-app/Dockerfile
         push: true
         tags: hpdjoy/react-devsecops-app:latest
+        
+  deploy:
+    needs: build-and-dockerize
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Set up Kubeconfig
+      run: |
+        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > kubeconfig
+        export KUBECONFIG=$PWD/kubeconfig
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/react-deployment.yaml
+        kubectl rollout status deployment react-deployment
